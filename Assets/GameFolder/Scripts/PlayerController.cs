@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.touchCount > 0)
         {
             rb.velocity = Vector2.up * jump;
             transform.eulerAngles = new Vector3(0, 0, 30);
