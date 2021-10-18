@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
 
     [SerializeField]
+    Transform gameOver;
+
+    [SerializeField]
     Text scoreView;
 
 
@@ -26,9 +29,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             rb.velocity = Vector2.up * jump;
+            transform.eulerAngles = new Vector3(0, 0, 30);
+        }
+        else
+        {
+            if (rb.velocity.y < 0)
+            {
+                transform.eulerAngles = new Vector3(0, 0, -45);
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+            }
         }
     }
 
@@ -43,6 +58,8 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Pipe"))
         {
             enabled = false;
+            gameOver.gameObject.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 }
